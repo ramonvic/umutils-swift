@@ -10,13 +10,13 @@ import UIKit
 
 extension UIViewController {
     
-    static func fromStoryboard() -> UIViewController {
+    public class func fromStoryboard() -> UIViewController {
         let identifier = "\(self)Identifier"
-        return fromStoryboard(identifier)
+        return fromStoryboard(identifier: identifier)
     }
     
-    static func fromStoryboard(identifier: String) -> UIViewController {
+    public class func fromStoryboard(identifier: String) -> UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateViewControllerWithIdentifier(identifier)
+        return storyboard.instantiateViewController(withIdentifier: identifier)
     }
 }
