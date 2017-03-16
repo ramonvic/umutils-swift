@@ -16,9 +16,6 @@ Pod::Spec.new do |spec|
     spec.default_subspec = 'Core'
 
     spec.subspec 'Core' do |ss|
-
-        ss.dependency 'Alamofire', '~> 3.0'
-        
         spec.source_files  = "UMUtils-Swift/Core/**/*.{h,m}"
     end
 
