@@ -1,14 +1,14 @@
 //
 //  UIViewController+Notification.swift
-//  Cilia Mobile
+//  Umobi
 //
 //  Created by Ramon Vicente on 8/22/16.
-//  Copyright © 2016 Cilia. All rights reserved.
+//  Copyright © 2017 Umobi. All rights reserved.
 //
 
 import Foundation
 import UIKit
 
-extension UIViewController {
+public extension UIViewController {
     
 }
