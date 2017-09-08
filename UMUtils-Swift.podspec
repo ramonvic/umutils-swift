@@ -42,6 +42,13 @@ Pod::Spec.new do |spec|
         ss.dependency 'MBProgressHUD', '~> 1.0'
     end
 
+    spec.subspec 'AIFlatSwitch_Rx' do |ss|
+        ss.source_files = 'Sources/Rx/AIFlatSwitch/**/*.swift'
+
+        ss.dependency 'UMUtils-Swift/Rx'
+        ss.dependency 'AIFlatSwitch', '~> 1.0'
+    end
+
     spec.subspec 'APIClient' do |ss|
         ss.dependency 'UMUtils-Swift/Core'
     end
