@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Material
 
 public extension UIWindow {
     public var visibleViewController: UIViewController? {
@@ -19,8 +18,11 @@ public extension UIWindow {
             return UIWindow.getVisibleViewControllerFrom(navController.visibleViewController)
         } else if let tabController = viewController as? UITabBarController {
             return UIWindow.getVisibleViewControllerFrom(tabController.selectedViewController)
-        } else if let rootController = viewController as? TransitionController {
-            return UIWindow.getVisibleViewControllerFrom(rootController.rootViewController)
+        } else if
+            let viewController = viewController,
+            viewController.responds(to: Selector(("rootViewController"))),
+            let rootViewController = viewController.value(forKey: "rootViewController") as? UIViewController {
+            return UIWindow.getVisibleViewControllerFrom(rootViewController)
         } else {
             if let presentedViewController = viewController?.presentedViewController {
                 return UIWindow.getVisibleViewControllerFrom(presentedViewController)

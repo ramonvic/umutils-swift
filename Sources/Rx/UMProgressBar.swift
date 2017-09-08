@@ -128,7 +128,7 @@ extension UMProgressBar {
                                         UIView.addKeyframe(withRelativeStartTime: 0,
                                                            relativeDuration: 1.0,
                                                            animations: {
-                                                            self.indicatorView.transform = CGAffineTransform(translationX: superview.width + self.indicatorWidth,
+                                                            self.indicatorView.transform = CGAffineTransform(translationX: superview.frame.width + self.indicatorWidth,
                                                                                                              y: 0)
                                         })
                                     } else {
