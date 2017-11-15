@@ -17,7 +17,12 @@ extension String {
                                                           options: NSRegularExpression.MatchingOptions(rawValue: 0),
                                                           range: NSMakeRange(0, self.characters.count),
                                                           withTemplate: "")
-        let double = (amountWithPrefix as NSString).doubleValue
+        let double = (digits as NSString).doubleValue
         return (double / 100)
+    }
+
+    public var digits: String {
+        return components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .joined()
     }
 }
