@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
     spec.name         = "UMUtils-Swift"
-    spec.version      = "0.2.0"
+    spec.version      = "0.3.0"
     spec.summary      = "Utility Class Library"
     spec.homepage     = "https://github.com/ramonvic"
     spec.license      = { :type => "MIT", :file => "LICENSE.md" }
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.platform     = :ios, '9.0'
     spec.source       = { 
         :git => "https://github.com/ramonvic/umutils-swift.git", 
-        :tag => "0.2.0" }
+        :tag => "0.3.0" }
     spec.requires_arc = true
 
     spec.default_subspec = 'Core'
@@ -22,31 +22,30 @@ Pod::Spec.new do |spec|
         ss.source_files = 'Sources/Material/**/*.swift'
 
         ss.dependency 'UMUtils-Swift/Core'
-        ss.dependency 'Material', '~> 2.0'
+        ss.dependency 'Material'
     end
 
     spec.subspec 'Rx' do |ss|
         ss.source_files = 'Sources/Rx/*.swift'
         
         ss.dependency 'UMUtils-Swift/Core'
-        ss.dependency 'RxSwift', '~> 3.1'
-        ss.dependency 'RxCocoa', '~> 3.1'
-        ss.dependency 'RxOptional', '~> 3.1'
-        ss.dependency 'RxSwiftUtilities', '~> 1.0.1'
+        ss.dependency 'RxSwift'
+        ss.dependency 'RxCocoa'
+        ss.dependency 'RxOptional'
     end
 
     spec.subspec 'MBProgressHUD_Rx' do |ss|
         ss.source_files = 'Sources/Rx/MBProgressHUD/**/*.swift'
 
         ss.dependency 'UMUtils-Swift/Rx'
-        ss.dependency 'MBProgressHUD', '~> 1.0'
+        ss.dependency 'MBProgressHUD'
     end
 
     spec.subspec 'AIFlatSwitch_Rx' do |ss|
         ss.source_files = 'Sources/Rx/AIFlatSwitch/**/*.swift'
 
         ss.dependency 'UMUtils-Swift/Rx'
-        ss.dependency 'AIFlatSwitch', '~> 1.0'
+        ss.dependency 'AIFlatSwitch'
     end
 
     spec.subspec 'APIClient' do |ss|
@@ -55,7 +54,7 @@ Pod::Spec.new do |spec|
 
     spec.subspec 'Popup' do |ss|
         ss.source_files = 'Sources/Popup/**/*.swift'
-        ss.dependency 'CNPPopupController', '~> 0.3.3'
+        ss.dependency 'CNPPopupController'
     end
 
     spec.subspec 'PushNotification' do |ss|
