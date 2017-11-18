@@ -40,4 +40,66 @@ extension UIView {
         border.frame = CGRect(x: x, y: y, width: width, height: height)
         layer.addSublayer(border)
     }
+
+    @IBInspectable
+    open var borderWidth: CGFloat {
+        get { return layer.borderWidth }
+        set(value) {
+            layer.borderWidth = value
+        }
+    }
+
+    @IBInspectable
+    open var shadowColor: UIColor? {
+        get {
+            guard let v = layer.shadowColor else {
+                return nil
+            }
+
+            return UIColor(cgColor: v)
+        }
+        set(value) {
+            layer.shadowColor = value?.cgColor
+        }
+    }
+
+    @IBInspectable
+    open var shadowOffset: CGSize {
+        get {
+            return layer.shadowOffset
+        }
+        set(value) {
+            layer.shadowOffset = value
+        }
+    }
+
+    @IBInspectable
+    open var shadowOpacity: Float {
+        get {
+            return layer.shadowOpacity
+        }
+        set(value) {
+            layer.shadowOpacity = value
+        }
+    }
+
+    @IBInspectable
+    open var shadowRadius: CGFloat {
+        get {
+            return layer.shadowRadius
+        }
+        set(value) {
+            layer.shadowRadius = value
+        }
+    }
+
+    @IBInspectable
+    open var shadowPath: CGPath? {
+        get {
+            return layer.shadowPath
+        }
+        set(value) {
+            layer.shadowPath = value
+        }
+    }
 }
