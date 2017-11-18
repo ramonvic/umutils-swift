@@ -6,8 +6,8 @@
 //  Copyright © 2017 SPA at home. All rights reserved.
 //
 
+import RxCocoa
 import RxSwift
-import RxSwiftUtilities
 
 public typealias ActivityIndicatorFilter = (activityIndicator: ActivityIndicator, condition: Bool)
 
@@ -29,10 +29,24 @@ public extension ObservableConvertibleType {
     let (activityIndicator, condition) = activityIndicatorFilter
     return self.asObservable()
       .withLatestFrom(activityIndicator.asObservable().startWith(false)) { ($0, $1) }
-      .filter { _, isLoading in isLoading == condition }
+      .filter { _, isLoading in
+            isLoading == condition
+        }
       .map { element, _ in element }
   }
+}
 
+// MARK: filter
+extension SharedSequenceConvertibleType {
+
+    public func filter(_ activityIndicator: ActivityIndicator) -> SharedSequence<DriverSharingStrategy, E> {
+        return self.filter(activityIndicator == true)
+    }
+
+    public func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> SharedSequence<DriverSharingStrategy, E> {
+        let observable: Observable<Self.E> = self.filter(activityIndicatorFilter)
+        return observable.asDriver(onErrorDriveWith: Driver.never())
+    }
 }
 
 prefix operator !
