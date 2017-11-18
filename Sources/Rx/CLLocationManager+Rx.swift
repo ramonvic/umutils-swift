@@ -13,50 +13,44 @@ import CoreLocation
 #endif
 
 extension Reactive where Base: CLLocationManager {
-    
+
     /**
      Reactive wrapper for `delegate`.
      For more information take a look at `DelegateProxyType` protocol documentation.
      */
-    public var delegate: DelegateProxy {
-        return RxCLLocationManagerDelegateProxy.proxyForObject(base)
+    public var delegate: DelegateProxy<CLLocationManager, CLLocationManagerDelegate> {
+        return RxCLLocationManagerDelegateProxy.proxy(for: base)
     }
-    
+
     // MARK: Responding to Location Events
     /**
      Reactive wrapper for `delegate` message.
      */
     public var didUpdateLocations: Observable<[CLLocation]> {
-        return delegate.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didUpdateLocations:)))
-            .map { a in
-                return try castOrThrow([CLLocation].self, a[1])
-        }
+        return RxCLLocationManagerDelegateProxy.proxy(for: base).didUpdateLocationsSubject.asObservable()
     }
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
-    public var didFailWithError: Observable<NSError> {
-        return delegate.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didFailWithError:)))
-            .map { a in
-                return try castOrThrow(NSError.self, a[1])
-        }
+    public var didFailWithError: Observable<Error> {
+        return RxCLLocationManagerDelegateProxy.proxy(for: base).didFailWithErrorSubject.asObservable()
     }
-    
+
     #if os(iOS) || os(macOS)
     /**
      Reactive wrapper for `delegate` message.
      */
-    public var didFinishDeferredUpdatesWithError: Observable<NSError?> {
+    public var didFinishDeferredUpdatesWithError: Observable<Error?> {
         return delegate.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:didFinishDeferredUpdatesWithError:)))
             .map { a in
-                return try castOptionalOrThrow(NSError.self, a[1])
+                return try castOptionalOrThrow(Error.self, a[1])
         }
     }
     #endif
-    
+
     #if os(iOS)
-    
+
     // MARK: Pausing Location Updates
     /**
      Reactive wrapper for `delegate` message.
@@ -67,7 +61,7 @@ extension Reactive where Base: CLLocationManager {
                 return ()
         }
     }
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
@@ -77,7 +71,7 @@ extension Reactive where Base: CLLocationManager {
                 return ()
         }
     }
-    
+
     // MARK: Responding to Heading Events
     /**
      Reactive wrapper for `delegate` message.
@@ -88,7 +82,7 @@ extension Reactive where Base: CLLocationManager {
                 return try castOrThrow(CLHeading.self, a[1])
         }
     }
-    
+
     // MARK: Responding to Region Events
     /**
      Reactive wrapper for `delegate` message.
@@ -99,7 +93,7 @@ extension Reactive where Base: CLLocationManager {
                 return try castOrThrow(CLRegion.self, a[1])
         }
     }
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
@@ -109,11 +103,11 @@ extension Reactive where Base: CLLocationManager {
                 return try castOrThrow(CLRegion.self, a[1])
         }
     }
-    
+
     #endif
-    
+
     #if os(iOS) || os(macOS)
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
@@ -127,19 +121,19 @@ extension Reactive where Base: CLLocationManager {
                 return (state: state, region: region)
         }
     }
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
-    public var monitoringDidFailForRegionWithError: Observable<(region: CLRegion?, error: NSError)> {
+    public var monitoringDidFailForRegionWithError: Observable<(region: CLRegion?, error: Error)> {
         return delegate.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:monitoringDidFailFor:withError:)))
             .map { a in
                 let region = try castOptionalOrThrow(CLRegion.self, a[1])
-                let error = try castOrThrow(NSError.self, a[2])
+                let error = try castOrThrow(Error.self, a[2])
                 return (region: region, error: error)
         }
     }
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
@@ -149,11 +143,11 @@ extension Reactive where Base: CLLocationManager {
                 return try castOrThrow(CLRegion.self, a[1])
         }
     }
-    
+
     #endif
-    
+
     #if os(iOS)
-    
+
     // MARK: Responding to Ranging Events
     /**
      Reactive wrapper for `delegate` message.
@@ -166,19 +160,19 @@ extension Reactive where Base: CLLocationManager {
                 return (beacons: beacons, region: region)
         }
     }
-    
+
     /**
      Reactive wrapper for `delegate` message.
      */
-    public var rangingBeaconsDidFailForRegionWithError: Observable<(region: CLBeaconRegion, error: NSError)> {
+    public var rangingBeaconsDidFailForRegionWithError: Observable<(region: CLBeaconRegion, error: Error)> {
         return delegate.methodInvoked(#selector(CLLocationManagerDelegate.locationManager(_:rangingBeaconsDidFailFor:withError:)))
             .map { a in
                 let region = try castOrThrow(CLBeaconRegion.self, a[1])
-                let error = try castOrThrow(NSError.self, a[2])
+                let error = try castOrThrow(Error.self, a[2])
                 return (region: region, error: error)
         }
     }
-    
+
     // MARK: Responding to Visit Events
     /**
      Reactive wrapper for `delegate` message.
@@ -190,9 +184,9 @@ extension Reactive where Base: CLLocationManager {
                 return try castOrThrow(CLVisit.self, a[1])
         }
     }
-    
+
     #endif
-    
+
     // MARK: Responding to Authorization Changes
     /**
      Reactive wrapper for `delegate` message.
@@ -204,9 +198,6 @@ extension Reactive where Base: CLLocationManager {
                 return CLAuthorizationStatus(rawValue: Int32(number.intValue)) ?? .notDetermined
         }
     }
-    
-    
-    
 }
 
 
@@ -214,7 +205,7 @@ fileprivate func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T
     guard let returnValue = object as? T else {
         throw RxCocoaError.castingError(object: object, targetType: resultType)
     }
-    
+
     return returnValue
 }
 
@@ -222,10 +213,10 @@ fileprivate func castOptionalOrThrow<T>(_ resultType: T.Type, _ object: Any) thr
     if NSNull().isEqual(object) {
         return nil
     }
-    
+
     guard let returnValue = object as? T else {
         throw RxCocoaError.castingError(object: object, targetType: resultType)
     }
-    
+
     return returnValue
 }
