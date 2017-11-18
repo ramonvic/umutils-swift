@@ -68,15 +68,15 @@ extension TextField {
 
             let _text = text ?? ""
 
-            for i in (0..<_text.characters.count) {
+            for i in (0..<_text.count) {
                 let _maskedText = maskedText ?? ""
 
-                if _maskedText.characters.count == self.maskText.characters.count {
+                if _maskedText.count == self.maskText.count {
                     break
                 }
 
                 let char = _text[_text.index(_text.startIndex, offsetBy: i)]
-                _ = shouldChangeCharacters(inRange: NSRange(location: _maskedText.characters.count, length: 0),
+                _ = shouldChangeCharacters(inRange: NSRange(location: _maskedText.count, length: 0),
                                            replacementString: String(char),
                                            mask: maskText)
             }
@@ -110,14 +110,14 @@ extension TextField {
             .replacingCharacters(in: range, with: string) ?? ""
 
         if string.isEmpty {
-            while currentTextDigited.characters.count > 0 && !lastCharacterIsNumber(currentTextDigited) {
+            while currentTextDigited.count > 0 && !lastCharacterIsNumber(currentTextDigited) {
                 currentTextDigited.remove(at: currentTextDigited.index(before: currentTextDigited.endIndex))
             }
             self.maskedText = currentTextDigited
             return false
         }
 
-        if currentTextDigited.characters.count > mask.characters.count {
+        if currentTextDigited.count > mask.count {
             return false
         }
 
@@ -125,7 +125,7 @@ extension TextField {
         var last = 0
         var needAppend = false
 
-        for i in (0..<currentTextDigited.characters.count) {
+        for i in (0..<currentTextDigited.count) {
             let currentCharMask = mask[mask.index(mask.startIndex, offsetBy: i)]
             let currentChar = currentTextDigited[currentTextDigited.index(currentTextDigited.startIndex, offsetBy: i)]
 
@@ -147,7 +147,7 @@ extension TextField {
 
         last += 1
 
-        for j in (last..<mask.characters.count) {
+        for j in (last..<mask.count) {
 
             let currentCharMask = mask[mask.index(mask.startIndex, offsetBy: j)]
 
@@ -180,7 +180,7 @@ extension TextField {
     }
 
     func lastCharacterIsNumber(_ string: String) -> Bool {
-        return isNumber(string.characters.last)
+        return isNumber(string.last)
     }
 }
 

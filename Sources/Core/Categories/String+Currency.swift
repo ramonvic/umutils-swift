@@ -15,7 +15,7 @@ extension String {
         let regex = (try? NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive))!
         amountWithPrefix = regex.stringByReplacingMatches(in: amountWithPrefix,
                                                           options: NSRegularExpression.MatchingOptions(rawValue: 0),
-                                                          range: NSMakeRange(0, self.characters.count),
+                                                          range: NSMakeRange(0, self.count),
                                                           withTemplate: "")
         let double = (digits as NSString).doubleValue
         return (double / 100)

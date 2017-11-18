@@ -11,6 +11,6 @@ import UIKit
 extension UILabel {
 
     public func boldSubstring(_ substring: String) {
-        self.attributedText = self.attributedText?.setAttributes([NSFontAttributeName: self.font.bold], string: substring)
+        self.attributedText = self.attributedText?.setAttributes([.font: self.font.bold], string: substring)
     }
 }

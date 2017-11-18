@@ -10,10 +10,10 @@ import Foundation
 
 public extension NSAttributedString {
     public func boldify(with string: String) -> NSAttributedString {
-        return self.setAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 15)!], string: string)
+        return self.setAttributes([.font: UIFont(name: "HelveticaNeue-Bold", size: 15)!], string: string)
     }
 
-    public func setAttributes(_ attrs: [String : Any]?, string: String) -> NSAttributedString {
+    public func setAttributes(_ attrs: [NSAttributedStringKey : Any]?, string: String) -> NSAttributedString {
         let nsString = self.string as NSString
         let attributedString = NSMutableAttributedString(attributedString: self)
 
@@ -33,7 +33,7 @@ public extension NSString {
         return attributedString.boldify(with:string)
     }
 
-    public func setAttributes(_ attrs: [String : Any]?, string: String) -> NSAttributedString {
+    public func setAttributes(_ attrs: [NSAttributedStringKey : Any]?, string: String) -> NSAttributedString {
         return NSAttributedString(string: self as String).setAttributes(attrs, string: string)
     }
 }
@@ -43,7 +43,7 @@ public extension String {
         return (self as NSString).boldify(with:string)
     }
 
-    public func setAttributes(_ attrs: [String : Any]?, string: String) -> NSAttributedString {
+    public func setAttributes(_ attrs: [NSAttributedStringKey : Any]?, string: String) -> NSAttributedString {
         return (self as NSString).setAttributes(attrs, string: string)
     }
 }

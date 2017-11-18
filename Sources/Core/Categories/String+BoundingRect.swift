@@ -10,14 +10,14 @@ import UIKit
 
 public extension String {
 
-  public func boundingRect(with size: CGSize, attributes: [String: Any]) -> CGRect {
+  public func boundingRect(with size: CGSize, attributes: [NSAttributedStringKey: Any]) -> CGRect {
     let options: NSStringDrawingOptions = [.usesLineFragmentOrigin, .usesFontLeading]
     let rect = self.boundingRect(with: size, options: options, attributes: attributes, context: nil)
     return rect
   }
 
   public func size(thatFits size: CGSize, font: UIFont, maximumNumberOfLines: Int = 0) -> CGSize {
-    let attributes = [NSFontAttributeName: font]
+    let attributes = [NSAttributedStringKey.font: font]
     var size = self.boundingRect(with: size, attributes: attributes).size
     if maximumNumberOfLines > 0 {
       size.height = min(size.height, CGFloat(maximumNumberOfLines) * font.lineHeight)

@@ -17,7 +17,7 @@ public protocol ViewModelBindable: class {
     func bindViewModel(viewModel: ViewModel)
 }
 
-extension ViewModelBindable where Self: AnyObject {
+extension ViewModelBindable {
     
     public var viewModel: ViewModel? {
         
