@@ -20,7 +20,9 @@ extension NSNumber {
         numberFormatter.locale = Locale(identifier: "pt_BR")
         numberFormatter.maximumFractionDigits = 2
         numberFormatter.minimumFractionDigits = 2
-        return numberFormatter.string(from: self) ?? ""
+        let absSelf = NSNumber(value: abs(self.doubleValue))
+        let formatted = numberFormatter.string(from: absSelf) ?? ""
+        return self.doubleValue >= 0 ? formatted : "- " + formatted
     }
 }
 
