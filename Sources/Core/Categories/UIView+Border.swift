@@ -50,20 +50,6 @@ extension UIView {
     }
 
     @IBInspectable
-    open var shadowColor: UIColor? {
-        get {
-            guard let v = layer.shadowColor else {
-                return nil
-            }
-
-            return UIColor(cgColor: v)
-        }
-        set(value) {
-            layer.shadowColor = value?.cgColor
-        }
-    }
-
-    @IBInspectable
     open var shadowOffset: CGSize {
         get {
             return layer.shadowOffset

@@ -11,7 +11,9 @@ import RxCocoa
 import RxSwift
 
 public extension UIControl {
-     static func valuePublic<T, ControlType: UIControl>(_ control: ControlType, getter:  @escaping (ControlType) -> T, setter: @escaping (ControlType, T) -> ()) -> ControlProperty<T> {
+     static func valuePublic<T, ControlType: UIControl>(_ control: ControlType,
+                                                        getter:  @escaping (ControlType) -> T,
+                                                        setter: @escaping (ControlType, T) -> ()) -> ControlProperty<T> {
         let values: Observable<T> = Observable.deferred { [weak control] in
             guard let existingSelf = control else {
                 return Observable.empty()
