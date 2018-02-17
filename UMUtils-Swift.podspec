@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
     spec.name         = "UMUtils-Swift"
-    spec.version      = "0.3.0"
+    spec.version      = "0.3.2"
     spec.summary      = "Utility Class Library"
     spec.homepage     = "https://github.com/ramonvic"
     spec.license      = { :type => "MIT", :file => "LICENSE.md" }
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.platform     = :ios, '9.0'
     spec.source       = { 
         :git => "https://github.com/ramonvic/umutils-swift.git", 
-        :tag => "0.3.0" }
+        :tag => "0.3.2" }
     spec.requires_arc = true
 
     spec.default_subspec = 'Core'
