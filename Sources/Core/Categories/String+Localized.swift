@@ -8,8 +8,16 @@
 
 import Foundation
 
-extension String {
+public extension String {
   var localized: String {
     return NSLocalizedString(self, comment: "")
   }
+
+    var initials: String {
+        return self.components(separatedBy: " ")
+            .reduce("") {
+                let first = $0.first ?? Character(" ")
+                let second = $1.first ?? Character(" ")
+                return ($0 == "" ? "" : "\(first)") + "\(second)" }
+    }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Date {
+public extension Date {
     public init(time: String) {
         let hour = Int(time.components(separatedBy: ":")[0])
         let minute = Int(time.components(separatedBy: ":")[1])

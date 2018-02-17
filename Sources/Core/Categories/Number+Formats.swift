@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension Int {
+public extension Int {
 
     public var humanTime: String {
 
@@ -36,7 +36,7 @@ extension Int {
 
 }
 
-extension Double {
+public extension Double {
     var humanTime: String {
         return Int(self).humanTime
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UILabel {
+public extension UILabel {
 
     public func boldSubstring(_ substring: String) {
         self.attributedText = self.attributedText?.setAttributes([.font: self.font.bold], string: substring)

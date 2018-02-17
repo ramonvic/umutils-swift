@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NSNumber {
+public extension NSNumber {
 
     public var priceString: String {
         let numberFormatter = NumberFormatter()
@@ -26,19 +26,19 @@ extension NSNumber {
     }
 }
 
-extension Double {
+public extension Double {
     public var priceString: String {
         return (self as NSNumber).priceString
     }
 }
 
-extension Float {
+public extension Float {
     public var priceString: String {
         return (self as NSNumber).priceString
     }
 }
 
-extension Int {
+public extension Int {
     public var priceString: String {
         return (self as NSNumber).priceString
     }

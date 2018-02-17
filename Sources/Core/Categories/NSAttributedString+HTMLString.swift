@@ -13,7 +13,7 @@ enum HTMLStringError: Error {
   case underlying(Error)
 }
 
-extension NSAttributedString {
+public extension NSAttributedString {
   convenience init(
     htmlString: String,
     fontFamily: String = "-apple-system",
