@@ -20,4 +20,14 @@ public extension String {
                 let second = $1.first ?? Character(" ")
                 return ($0 == "" ? "" : "\(first)") + "\(second)" }
     }
+
+    func removingRegexMatches(pattern: String, replaceWith: String = "") -> String? {
+        do {
+            let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
+            let range = NSMakeRange(0, self.count)
+            return regex.stringByReplacingMatches(in: self, options: [], range: range, withTemplate: replaceWith)
+        } catch {
+            return nil
+        }
+    }
 }

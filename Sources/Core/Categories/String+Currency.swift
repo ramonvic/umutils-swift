@@ -8,6 +8,8 @@
 
 import Foundation
 
+fileprivate let formatter = DateFormatter()
+
 public extension String {
     public var currency: Double {
         var amountWithPrefix = self
@@ -24,5 +26,16 @@ public extension String {
     public var digits: String {
         return components(separatedBy: CharacterSet.decimalDigits.inverted)
             .joined()
+    }
+
+    public var date: Date? {
+        guard !self.isEmpty else { return nil }
+
+        return formatter.date(from: self)
+    }
+
+    public func asDate(fromFormat: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+        formatter.dateFormat = fromFormat
+        return self.date
     }
 }

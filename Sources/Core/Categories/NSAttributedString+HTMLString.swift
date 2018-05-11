@@ -34,6 +34,6 @@ public extension NSAttributedString {
   }
 
   private class func styleForFont(family: String, size: CGFloat) -> String {
-    return "<style>body{font-family: '\(family)';font-size: \(size)px;}</style>"
+    return "<style>body{font-family: '\(family)', -apple-system, sans-serif;font-size: \(size)px;}</style>"
   }
 }

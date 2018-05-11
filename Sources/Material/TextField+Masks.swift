@@ -52,6 +52,7 @@ extension TextField {
             return ""
         }
         set(value) {
+            guard value != maskText else { return }
             objc_setAssociatedObject(self, &TextFieldMaskTextKey, value, .OBJC_ASSOCIATION_RETAIN)
             super.delegate = self.proxyDelegate
             if let _text = text, maskedText != text, !text!.isEmpty {

@@ -8,8 +8,9 @@
 
 import UIKit
 
+fileprivate var selector: Selector = #selector(getter: UIWindow.visibleViewController)
 public extension UIWindow {
-    public var visibleViewController: UIViewController? {
+    @objc public var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
 
@@ -20,8 +21,8 @@ public extension UIWindow {
             return UIWindow.getVisibleViewControllerFrom(tabController.selectedViewController)
         } else if
             let viewController = viewController,
-            viewController.responds(to: Selector(("rootViewController"))),
-            let rootViewController = viewController.value(forKey: "rootViewController") as? UIViewController {
+            viewController.responds(to: selector),
+            let rootViewController = viewController.perform(selector).takeUnretainedValue() as? UIViewController {
             return UIWindow.getVisibleViewControllerFrom(rootViewController)
         } else {
             if let presentedViewController = viewController?.presentedViewController {

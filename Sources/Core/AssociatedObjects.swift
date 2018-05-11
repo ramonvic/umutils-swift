@@ -21,11 +21,7 @@ public func lift<T>(x: T) -> AssociatedObjectBox<T> {
 }
 
 public func setAssociatedObject<T>(object: AnyObject, value: T, key: UnsafeRawPointer, policy: objc_AssociationPolicy) {
-    if let v: AnyObject = value as? AnyObject {
-        objc_setAssociatedObject(object, key, v,  policy)
-    } else {
-        objc_setAssociatedObject(object, key, lift(x: value), policy)
-    }
+    objc_setAssociatedObject(object, key, value,  policy)
 }
 
 public func getAssociatedObject<T>(object: AnyObject, key: UnsafeRawPointer) -> T? {

@@ -11,11 +11,17 @@ import Foundation
 public extension String {
     
     public var isValidEmail: Bool {
-        
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        
-        return emailTest.evaluate(with: self)
+        let pattern = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        return self.isValid(pattern: pattern)
+    }
+
+    public var isValidPhone: Bool {
+        let pattern = "^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$"
+        return self.isValid(pattern: pattern)
+    }
+
+    public func isValid(pattern: String) -> Bool {
+        let predicate = NSPredicate(format:"SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
     }
 }

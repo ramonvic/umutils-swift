@@ -9,36 +9,12 @@
 import UIKit
 
 extension UIView {
-    
-    public func addBorderTop(size: CGFloat, color: UIColor) {
-        addBorderUtility(x: 0, y: 0, width: frame.width, height: size, color: color)
-    }
-    
-    public func addBorderTopWithPadding(size: CGFloat, color: UIColor, padding: CGFloat) {
-        addBorderUtility(x: padding, y: 0, width: frame.width - padding*2, height: size, color: color)
-    }
-    
-    public func addBorderBottom(size: CGFloat, color: UIColor) {
-        addBorderUtility(x: 0, y: frame.height - size, width: frame.width, height: size, color: color)
-    }
-    
-    public func addBorderBottomWithPadding(size: CGFloat, color: UIColor, padding: CGFloat) {
-        addBorderUtility(x: padding, y: frame.height - size - padding, width: frame.width - padding*2, height: size, color: color)
-    }
-    
-    public func addBorderLeft(size: CGFloat, color: UIColor) {
-        addBorderUtility(x: 0, y: 0, width: size, height: frame.height, color: color)
-    }
-    
-    public func addBorderRight(size: CGFloat, color: UIColor) {
-        addBorderUtility(x: frame.width - size, y: 0, width: size, height: frame.height, color: color)
-    }
-    
-    fileprivate func addBorderUtility(x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, color: UIColor) {
-        let border = CALayer()
-        border.backgroundColor = color.cgColor
-        border.frame = CGRect(x: x, y: y, width: width, height: height)
-        layer.addSublayer(border)
+
+    public enum ViewSide {
+        case top
+        case right
+        case bottom
+        case left
     }
 
     @IBInspectable
@@ -46,6 +22,17 @@ extension UIView {
         get { return layer.borderWidth }
         set(value) {
             layer.borderWidth = value
+        }
+    }
+
+    @IBInspectable
+    open var borderColor: UIColor? {
+        get {
+            guard layer.borderColor != nil else { return nil }
+            return UIColor(cgColor: layer.borderColor!)
+        }
+        set(value) {
+            layer.borderColor = value?.cgColor
         }
     }
 
@@ -87,5 +74,58 @@ extension UIView {
         set(value) {
             layer.shadowPath = value
         }
+    }
+
+    public func addBorder(side: ViewSide,
+                          thickness: CGFloat,
+                          color: UIColor,
+                          offset: UIEdgeInsets = .zero) {
+
+        let border: UIView!
+        switch side {
+        case .top:
+            border = _getViewBackedOneSidedBorder(frame: CGRect(x: offset.left,
+                                                                y: offset.top,
+                                                                width: self.frame.size.width - offset.left - offset.right,
+                                                                height: thickness),
+                                                  color: color)
+            border.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+
+            break
+        case .right:
+            border = _getViewBackedOneSidedBorder(frame: CGRect(x: self.frame.size.width - thickness - offset.right,
+                                                                y: 0 + offset.top, width: thickness,
+                                                                height: self.frame.size.height - offset.top - offset.bottom),
+                                                  color: color)
+            border.autoresizingMask = [.flexibleHeight, .flexibleLeftMargin]
+
+            break
+        case .bottom:
+            border = _getViewBackedOneSidedBorder(frame: CGRect(x: 0 + offset.left,
+                                                                y: self.frame.size.height - thickness - offset.bottom,
+                                                                width: self.frame.size.width - offset.left - offset.right,
+                                                                height: thickness),
+                                                  color: color)
+            border.autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
+
+            break
+        case .left:
+            border = _getViewBackedOneSidedBorder(frame: CGRect(x: 0 + offset.left,
+                                                                y: offset.top,
+                                                                width: thickness,
+                                                                height: self.frame.size.height - offset.top - offset.bottom),
+                                                  color: color)
+            border.autoresizingMask = [.flexibleHeight, .flexibleRightMargin]
+
+            break
+        }
+
+        self.addSubview(border)
+    }
+
+    fileprivate func _getViewBackedOneSidedBorder(frame: CGRect, color: UIColor) -> UIView {
+        let border = UIView(frame: frame)
+        border.backgroundColor = color
+        return border
     }
 }
