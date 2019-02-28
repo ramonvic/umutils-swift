@@ -59,28 +59,29 @@ extension ObservableType {
 }
 
 
-// MARK: - catchError()
-
-extension ObservableType {
-  public func catchError<O: ObserverType>(_ observer: O) -> Observable<E> where O.E == Swift.Error {
-    return self.catchError { error in
-      observer.onNext(error)
-      return .empty()
-    }
-  }
-}
 
 infix operator <->
 
 @discardableResult public func <-><T>(property: ControlProperty<T>, variable: Variable<T>) -> Disposable {
     let variableToProperty = variable.asObservable()
         .bind(to: property)
-    
+
     let propertyToVariable = property
         .subscribe(
             onNext: { variable.value = $0 },
             onCompleted: { variableToProperty.dispose() }
     )
-    
+
     return Disposables.create(variableToProperty, propertyToVariable)
+}
+
+
+@discardableResult public func <-><T>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposable {
+    let relayToProperty = relay.asObservable()
+        .bind(to: property)
+
+    let propertyToRelay = property.asObservable()
+        .bind(to: relay)
+
+    return Disposables.create(relayToProperty, propertyToRelay)
 }

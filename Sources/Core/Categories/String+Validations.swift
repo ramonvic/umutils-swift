@@ -16,8 +16,8 @@ public extension String {
     }
 
     public var isValidPhone: Bool {
-        let pattern = "^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4}))$"
-        return self.isValid(pattern: pattern)
+        let pattern = "^(?:(?:\\+|00)?(55)\\s?)?(?:\\(?([1-9][0-9])\\)?\\s?)?(?:((?:9\\d|[2-9])\\d{3})\\-?(\\d{4,5}))$"
+        return self.isValid(pattern: pattern) 
     }
 
     public func isValid(pattern: String) -> Bool {
