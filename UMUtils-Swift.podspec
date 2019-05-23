@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
     spec.name         = "UMUtils-Swift"
-    spec.version      = "0.4.1"
+    spec.version      = "0.4.2"
     spec.summary      = "Utility Class Library"
     spec.homepage     = "https://github.com/ramonvic"
     spec.license      = { :type => "MIT", :file => "LICENSE.md" }
@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.platform     = :ios, '9.0'
     spec.source       = { 
         :git => "https://github.com/ramonvic/umutils-swift.git", 
-        :tag => "0.4.1" }
+        :tag => "0.4.2" }
     spec.requires_arc = true
 
     spec.default_subspec = 'Core'
@@ -29,9 +29,9 @@ Pod::Spec.new do |spec|
         ss.source_files = 'Sources/Rx/*.swift'
         
         ss.dependency 'UMUtils-Swift/Core'
-        ss.dependency 'RxSwift'
-        ss.dependency 'RxCocoa'
-        ss.dependency 'RxOptional'
+        ss.dependency 'RxSwift', '~> 4.4'
+        ss.dependency 'RxCocoa', '~> 4.4'
+        ss.dependency 'RxOptional', '~> 3.6'
     end
 
     spec.subspec 'MBProgressHUD_Rx' do |ss|
