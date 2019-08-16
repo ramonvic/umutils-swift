@@ -22,7 +22,7 @@ extension Reactive where Base: MBProgressHUD {
             switch (event) {
             case .next(let value):
                 if self.base.attachedView == nil {
-                    self.base.attachedView = UIApplication.shared.windows.first!
+                    self.base.attachedView = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) ?? UIApplication.shared.windows.first
                 }
                 if self.base.attachedView != nil {
                     
