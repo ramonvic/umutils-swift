@@ -23,6 +23,13 @@ Pod::Spec.new do |spec|
 
         ss.dependency 'UMUtils-Swift/Core'
         ss.dependency 'Material'
+        ss.dependency 'SnapKit', '~> 3.6'
+    end
+	
+    spec.subspec 'View' do |ss|
+        ss.source_files = 'Sources/View/*.swift'
+
+        ss.dependency 'SnapKit'
     end
 
     spec.subspec 'Rx' do |ss|
