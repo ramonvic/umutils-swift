@@ -8,8 +8,8 @@ Pod::Spec.new do |spec|
     spec.author       = { "Ramon Vicente" => "ramonvicentesilva@hotmail.com" }
     spec.platform     = :ios, '9.0'
     spec.source       = { 
-        :git => "https://github.com/ramonvic/umutils-swift.git", 
-        :tag => "0.4.2" }
+        :git => "https://github.com/brennobemoura/umutils-swift.git", 
+        :tag => "0.4.4" }
     spec.requires_arc = true
 
     spec.default_subspec = 'Core'
