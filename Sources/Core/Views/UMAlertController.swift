@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 public enum UMActionStyle {
     case `default`, cancel
