@@ -57,7 +57,7 @@ open class UMProgressBar: UIView {
         let y = self.barPosition == .top ? positionOffset.top : superview.frame.height - indicatorHeight - positionOffset.bottom
         self.frame.size = CGSize(width: width, height: indicatorHeight)
         self.frame.origin = CGPoint(x: x, y: y)
-        superview.bringSubview(toFront: self)
+        superview.bringSubviewToFront(self)
     }
 }
 
@@ -118,7 +118,7 @@ extension UMProgressBar {
             self.indicatorView.transform = CGAffineTransform(translationX: superview.frame.width + self.indicatorWidth, y: 0)
         }
 
-        let animateOption = UIViewKeyframeAnimationOptions(rawValue: UIViewAnimationOptions.curveEaseInOut.rawValue)
+        let animateOption = UIView.KeyframeAnimationOptions(rawValue: UIView.AnimationOptions.curveEaseInOut.rawValue)
 
         UIView.animateKeyframes(withDuration: 1.0,
                                 delay: 0.2,

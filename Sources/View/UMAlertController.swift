@@ -13,6 +13,23 @@ public enum UMActionStyle {
     case `default`, cancel
 }
 
+public extension UMActionStyle {
+    public init(_ alertStyle: UIAlertAction.Style) {
+        self = {
+            switch alertStyle {
+            case .cancel:
+                return .cancel
+            case .default:
+                return .default
+            case .destructive:
+                return .default
+            @unknown default:
+                return .default
+            }
+        }()
+    }
+}
+
 fileprivate class UMAlertButton: UIButton {
     private var action: UMAlertAction? = nil
 
@@ -34,7 +51,7 @@ open class UMAlertAction {
     
     fileprivate let title: String?
     fileprivate let handler: ((UMAlertAction) -> Void)?
-    fileprivate let style: UMActionStyle
+    public let style: UMActionStyle
 
     required public init(title: String?, handler: ((UMAlertAction) -> Void)? = nil, style: UMActionStyle? = nil) {
         self.title = title
@@ -42,7 +59,7 @@ open class UMAlertAction {
         self.style = style ?? .default
     }
 
-    func asButton() -> UIButton {
+    open func asButton() -> UIButton {
         let button = UMAlertButton(frame: CGRect.zero)
 
         button.setTitle(self.title, for: .normal)
@@ -124,7 +141,7 @@ open class UMAlertController: UIViewController {
 
 
     // MARK: Alert Views
-    fileprivate(set) var alertView: UIView = {
+    public fileprivate(set) var alertView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1.00)
@@ -206,11 +223,11 @@ open class UMAlertController: UIViewController {
         return lbl
     }
 
-    func setTitle(font: UIFont) {
+    public func setTitle(font: UIFont) {
         self.titleFont = font
     }
 
-    func title(_ text: String?) {
+    public func title(_ text: String?) {
         guard let text = text else {
             self._title?.removeFromSuperview()
             self._title = nil
@@ -227,15 +244,21 @@ open class UMAlertController: UIViewController {
     }
 
     // MARK: Alert Subtitle
-    private var subtitle: UILabel? = nil
+    private(set) var subtitleSV: UIStackView? = nil
     private var subtitleFont: UIFont! = {
         return UIFont(name: "HelveticaNeue", size: 16)
     }() {
         willSet {
-            subtitle?.font = newValue
+            self.subtitleSV?.arrangedSubviews.forEach { ($0 as? UILabel)?.font = newValue }
         }
     }
 
+    open func createSubtitleSV() -> UIStackView {
+        let sv = UIStackView()
+        sv.axis = .vertical
+        return sv
+    }
+    
     open func createSubtitle() -> UILabel {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
@@ -248,24 +271,42 @@ open class UMAlertController: UIViewController {
         return lbl
     }
 
-    func setSubtitle(font: UIFont) {
+    public func setSubtitle(font: UIFont) {
         self.subtitleFont = font
     }
-
-    func subtitle(_ text: String?) {
+    
+    public func subtitle(_ text: String?, at index: Int? = nil) {
         guard let text = text else {
-            self.subtitle?.removeFromSuperview()
-            self.subtitle = nil
+            self.subtitleSV?.removeFromSuperview()
+            self.subtitleSV = nil
             return
         }
-
-        if self.subtitle == nil {
-            self.subtitle = self.createSubtitle()
+        
+        let stackView = self.subtitleSV ?? self.createSubtitleSV()
+        let label: UILabel = {
+            if let index = index, let label = stackView.arrangedSubviews[index] as? UILabel {
+                return label
+            }
+            
+            return self.createSubtitle()
+        }()
+        
+        self.subtitleSV = stackView
+        label.text = text
+        
+        if label.superview == nil {
+            stackView.insertArrangedSubview(label, at: stackView.subviews.count)
         }
-
-        self.subtitle?.text = text
-
-        self.alertContainer.insertArrangedSubview(self.subtitle!, at: self.position(for: 2))
+        
+        if stackView.superview == nil {
+            self.alertContainer.insertArrangedSubview(stackView, at: self.position(for: 2))
+        }        
+    }
+    
+    public final var subtitles: [UILabel] {
+        return self.subtitleSV?.arrangedSubviews.compactMap {
+            $0 as? UILabel
+        } ?? []
     }
 
     // MARK: Alert Text
@@ -289,11 +330,11 @@ open class UMAlertController: UIViewController {
         return lbl
     }
 
-    func setText(font: UIFont) {
+    public func setText(font: UIFont) {
         self.textFont = font
     }
     
-    func text(_ text: String?) {
+    public func text(_ text: String?) {
         guard let text = text else {
             self.text?.removeFromSuperview()
             self.text = nil
@@ -370,7 +411,9 @@ open class UMAlertController: UIViewController {
         // Set up alertTitle
         self.title(self._title?.text)
         // Set up alertSubtitle
-        self.subtitle(self.subtitle?.text)
+        self.subtitleSV?.arrangedSubviews.enumerated().forEach { index, view in
+            self.subtitle((view as? UILabel)?.text, at: index)
+        }
         // Set up alertText
         self.text(self.text?.text)
         // Set up buttonsStackView
@@ -398,12 +441,20 @@ open class UMAlertController: UIViewController {
             }
         }
 
-        [self._title, self.subtitle, self.text].forEach {
+        [self._title, self.text].forEach {
             $0?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             $0?.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
             $0?.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
             $0?.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        }
+        
+        self.subtitleSV?.arrangedSubviews.forEach {
+            $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+            $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            
+            $0.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+            $0.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         }
     }
 
