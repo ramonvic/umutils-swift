@@ -30,6 +30,7 @@ Pod::Spec.new do |spec|
         ss.source_files = 'Sources/View/*.swift'
 
         ss.dependency 'SnapKit'
+        ss.platform = :ios, '10.0'
     end
 
     spec.subspec 'Rx' do |ss|
