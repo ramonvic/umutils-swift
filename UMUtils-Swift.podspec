@@ -6,10 +6,10 @@ Pod::Spec.new do |spec|
     spec.homepage     = "https://github.com/ramonvic"
     spec.license      = { :type => "MIT", :file => "LICENSE.md" }
     spec.author       = { "Ramon Vicente" => "ramonvicentesilva@hotmail.com" }
-    spec.platform     = :ios, '10.0'
+    spec.platform     = :ios, '9.0'
     spec.source       = { 
-        :git => "https://github.com/brennobemoura/umutils-swift.git", 
-        :tag => "0.4.4" }
+        :git => "https://github.com/ramonview/umutils-swift.git", 
+        :tag => "0.4.3" }
     spec.requires_arc = true
 
     spec.default_subspec = 'Core'
