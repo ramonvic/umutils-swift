@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     spec.author       = { "Ramon Vicente" => "ramonvicentesilva@hotmail.com" }
     spec.platform     = :ios, '9.0'
     spec.source       = { 
-        :git => "https://github.com/ramonview/umutils-swift.git", 
+        :git => "https://github.com/ramonvic/umutils-swift.git", 
         :tag => "0.4.3" }
     spec.requires_arc = true
 
