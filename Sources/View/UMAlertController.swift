@@ -108,7 +108,14 @@ open class UMAlertController: UIViewController {
 //    }
 
     // MARK: Background Blur
-    open var blurEffectStyle: UIBlurEffect.Style = .light
+    open var blurEffectStyle: UIBlurEffect.Style = .light {
+        didSet {
+            if oldValue != self.blurEffectStyle {
+                blurView?.removeFromSuperview()
+                blurView = self.createBlurView()
+            }
+        }
+    }
     open var useBlur: Bool = false {
         willSet {
             if newValue {
@@ -157,12 +164,15 @@ open class UMAlertController: UIViewController {
     }()
 
     // MARK: Image Alert
-    private var image: UIImageView? = nil
+    public private(set) var imageView: UIImageView? = nil
+    public var image: UIImage? {
+        return self.imageView?.image
+    }
 
     // Do not edit imageTintColor using the image.tintColor reference.
     private var imageTintColor: UIColor? = nil {
         willSet {
-            self.image?.tintColor = newValue
+            self.imageView?.tintColor = newValue
         }
     }
 
@@ -172,7 +182,7 @@ open class UMAlertController: UIViewController {
 
     open var imageHeight: Float = 175 {
         willSet {
-            self.image?.snp.updateConstraints { make in
+            self.imageView?.snp.updateConstraints { make in
                 make.height.equalTo(newValue)
             }
         }
@@ -188,27 +198,27 @@ open class UMAlertController: UIViewController {
 
     public func setImage(_ image: UIImage?) {
         guard let image = image else {
-            self.image?.removeFromSuperview()
-            self.image = nil
+            self.imageView?.removeFromSuperview()
+            self.imageView = nil
             return
         }
 
-        if self.image == nil {
-            self.image = self.createImage(image)
+        if self.imageView == nil {
+            self.imageView = self.createImage(image)
         } else {
-            self.image?.image = image
+            self.imageView?.image = image
         }
 
-        self.alertContainer.insertArrangedSubview(self.image!, at: 0)
+        self.alertContainer.insertArrangedSubview(self.imageView!, at: 0)
     }
 
     // MARK: Alert Title
-    private var _title: UILabel? = nil
+    public private(set) var titleLabel: UILabel? = nil
     private var titleFont: UIFont! = {
         return UIFont(name: "HelveticaNeue-Bold", size: 18)
     }() {
         willSet {
-            self._title?.font = newValue
+            self.titleLabel?.font = newValue
         }
     }
 
@@ -229,37 +239,37 @@ open class UMAlertController: UIViewController {
 
     public func title(_ text: String?) {
         guard let text = text else {
-            self._title?.removeFromSuperview()
-            self._title = nil
+            self.titleLabel?.removeFromSuperview()
+            self.titleLabel = nil
             return
         }
 
-        if self._title == nil {
-            self._title = self.createTitle()
+        if self.titleLabel == nil {
+            self.titleLabel = self.createTitle()
         }
 
-        self._title?.text = text
+        self.titleLabel?.text = text
 
-        self.alertContainer.insertArrangedSubview(self._title!, at: self.position(for: 1))
+        self.alertContainer.insertArrangedSubview(self.titleLabel!, at: self.position(for: 1))
     }
 
     // MARK: Alert Subtitle
-    private(set) var subtitleSV: UIStackView? = nil
-    private var subtitleFont: UIFont! = {
+    private(set) var textSV: UIStackView? = nil
+    private var textFont: UIFont! = {
         return UIFont(name: "HelveticaNeue", size: 16)
     }() {
         willSet {
-            self.subtitleSV?.arrangedSubviews.forEach { ($0 as? UILabel)?.font = newValue }
+            self.textSV?.arrangedSubviews.forEach { ($0 as? UILabel)?.font = newValue }
         }
     }
 
-    open func createSubtitleSV() -> UIStackView {
+    open func createTextSV() -> UIStackView {
         let sv = UIStackView()
         sv.axis = .vertical
         return sv
     }
     
-    open func createSubtitle() -> UILabel {
+    open func createText() -> UILabel {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = UIFont(name: "HelveticaNeue", size: 16)
@@ -267,66 +277,7 @@ open class UMAlertController: UIViewController {
         lbl.textColor = UIColor(red: 0.51, green: 0.54, blue: 0.58, alpha: 1.00)
         lbl.textAlignment = .center
         lbl.numberOfLines = 0
-        lbl.font = subtitleFont
-        return lbl
-    }
-
-    public func setSubtitle(font: UIFont) {
-        self.subtitleFont = font
-    }
-    
-    public func subtitle(_ text: String?, at index: Int? = nil) {
-        guard let text = text else {
-            self.subtitleSV?.removeFromSuperview()
-            self.subtitleSV = nil
-            return
-        }
-        
-        let stackView = self.subtitleSV ?? self.createSubtitleSV()
-        let label: UILabel = {
-            if let index = index, let label = stackView.arrangedSubviews[index] as? UILabel {
-                return label
-            }
-            
-            return self.createSubtitle()
-        }()
-        
-        self.subtitleSV = stackView
-        label.text = text
-        
-        if label.superview == nil {
-            stackView.insertArrangedSubview(label, at: stackView.subviews.count)
-        }
-        
-        if stackView.superview == nil {
-            self.alertContainer.insertArrangedSubview(stackView, at: self.position(for: 2))
-        }        
-    }
-    
-    public final var subtitles: [UILabel] {
-        return self.subtitleSV?.arrangedSubviews.compactMap {
-            $0 as? UILabel
-        } ?? []
-    }
-
-    // MARK: Alert Text
-    private var text: UILabel? = nil
-    private var textFont: UIFont! = {
-        return UIFont(name: "HelveticaNeue", size: 14)
-    }() {
-        willSet {
-            text?.font = newValue
-        }
-    }
-
-    open func createText() -> UILabel {
-        let lbl = UILabel()
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.font = self.textFont
-        lbl.minimumScaleFactor = 0.65
-        lbl.textColor = UIColor(red: 0.51, green: 0.54, blue: 0.58, alpha: 1.00)
-        lbl.textAlignment = .center
-        lbl.numberOfLines = 0
+        lbl.font = textFont
         return lbl
     }
 
@@ -334,27 +285,86 @@ open class UMAlertController: UIViewController {
         self.textFont = font
     }
     
-    public func text(_ text: String?) {
+    public func text(_ text: String?, at index: Int? = nil) {
         guard let text = text else {
-            self.text?.removeFromSuperview()
-            self.text = nil
+            self.textSV?.removeFromSuperview()
+            self.textSV = nil
+            return
+        }
+        
+        let stackView = self.textSV ?? self.createTextSV()
+        let label: UILabel = {
+            if let index = index, let label = stackView.arrangedSubviews[index] as? UILabel {
+                return label
+            }
+            
+            return self.createText()
+        }()
+        
+        self.textSV = stackView
+        label.text = text
+        
+        if label.superview == nil {
+            stackView.insertArrangedSubview(label, at: stackView.subviews.count)
+        }
+        
+        if stackView.superview == nil {
+            self.alertContainer.insertArrangedSubview(stackView, at: self.position(for: 3))
+        }        
+    }
+    
+    public final var textLabels: [UILabel] {
+        return self.textSV?.arrangedSubviews.compactMap {
+            $0 as? UILabel
+        } ?? []
+    }
+
+    // MARK: Alert Text
+    public private(set) var subtitleLabel: UILabel? = nil
+    private var subtitleFont: UIFont! = {
+        return UIFont(name: "HelveticaNeue", size: 14)
+    }() {
+        willSet {
+            subtitleLabel?.font = newValue
+        }
+    }
+
+    open func createSubtitle() -> UILabel {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = self.subtitleFont
+        lbl.minimumScaleFactor = 0.65
+        lbl.textColor = UIColor(red: 0.51, green: 0.54, blue: 0.58, alpha: 1.00)
+        lbl.textAlignment = .center
+        lbl.numberOfLines = 0
+        return lbl
+    }
+
+    public func setSubtitle(font: UIFont) {
+        self.subtitleFont = font
+    }
+    
+    public func subtitle(_ text: String?) {
+        guard let text = text else {
+            self.subtitleLabel?.removeFromSuperview()
+            self.subtitleLabel = nil
             return
         }
 
-        if self.text == nil {
-            self.text = self.createText()
+        if self.subtitleLabel == nil {
+            self.subtitleLabel = self.createText()
         }
 
-        self.text?.text = text
+        self.subtitleLabel?.text = text
 
-        self.alertContainer.insertArrangedSubview(self.text!, at: self.position(for: 3))
+        self.alertContainer.insertArrangedSubview(self.subtitleLabel!, at: self.position(for: 2))
     }
 
     // MARK: Position calculate the index for alertContainer
     func position(for item: Int) -> Int {
         let array = [Any?]([
             self.image,
-            self._title,
+            self.titleLabel,
             self.subtitle,
             self.text,
             self.buttonsStackView
@@ -363,7 +373,7 @@ open class UMAlertController: UIViewController {
         let futureIndex = Array(array[0..<item]).reduce(0) { $0 + ($1 != nil ? 1 : 0) }
         return futureIndex >= self.alertContainer.arrangedSubviews.count ? self.alertContainer.arrangedSubviews.count : futureIndex
     }
-
+    
     private let buttonsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -372,6 +382,12 @@ open class UMAlertController: UIViewController {
         stackView.spacing = 16
         return stackView
     }()
+    
+    public final var actionButtons: [UIButton] {
+        return self.buttonsStackView.arrangedSubviews.compactMap {
+            $0 as? UIButton
+        }
+    }
 
     // MARK: Alert layout setup
     fileprivate func setup() {
@@ -407,22 +423,21 @@ open class UMAlertController: UIViewController {
         }
 
         // Set up alertImage
-        self.setImage(self.image?.image)
+        self.setImage(self.imageView?.image)
         // Set up alertTitle
-        self.title(self._title?.text)
+        self.title(self.titleLabel?.text)
         // Set up alertSubtitle
-        self.subtitleSV?.arrangedSubviews.enumerated().forEach { index, view in
-            self.subtitle((view as? UILabel)?.text, at: index)
+        self.textSV?.arrangedSubviews.enumerated().forEach { index, view in
+            self.text((view as? UILabel)?.text, at: index)
         }
         // Set up alertText
-        self.text(self.text?.text)
+        self.subtitle(self.subtitleLabel?.text)
         // Set up buttonsStackView
         self.alertContainer.addArrangedSubview(buttonsStackView)
 
         // Set up background Tap
-        self.buttonsStackView.arrangedSubviews.forEach {
+        self.actionButtons.forEach {
             $0.snp.makeConstraints { $0.height.equalTo(44) }
-            $0.layer.cornerRadius = 22
         }
 
         setupConstraints()
@@ -435,13 +450,13 @@ open class UMAlertController: UIViewController {
             make.width.equalTo(alertWidth)
         }
 
-        if let imageView = self.image {
+        if let imageView = self.imageView {
             imageView.snp.makeConstraints { make in
                 make.height.equalTo(self.imageHeight)
             }
         }
 
-        [self._title, self.text].forEach {
+        [self.titleLabel, self.subtitleLabel].forEach {
             $0?.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             $0?.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
@@ -449,7 +464,7 @@ open class UMAlertController: UIViewController {
             $0?.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         }
         
-        self.subtitleSV?.arrangedSubviews.forEach {
+        self.textSV?.arrangedSubviews.forEach {
             $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             $0.setContentHuggingPriority(.defaultHigh, for: .vertical)
             
