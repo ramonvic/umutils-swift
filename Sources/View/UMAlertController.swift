@@ -302,7 +302,12 @@ open class UMAlertController: UIViewController {
         }()
         
         self.textSV = stackView
-        label.text = text
+        
+        if let attributed = label.attributedText {
+            label.attributedText = attributed
+        } else {
+            label.text = text
+        }
         
         if label.superview == nil {
             stackView.insertArrangedSubview(label, at: stackView.subviews.count)
