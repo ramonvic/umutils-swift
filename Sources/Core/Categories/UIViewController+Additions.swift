@@ -10,7 +10,7 @@ import UIKit
 
 public extension UIViewController {
     
-    public var isRootViewController: Bool {
+    var isRootViewController: Bool {
         guard navigationController?.viewControllers[0] != self else {
             return true
         }
@@ -18,7 +18,7 @@ public extension UIViewController {
         return false
     }
 
-    public var isModal: Bool {
+    var isModal: Bool {
         guard self.presentingViewController == nil else {
             return true
         }

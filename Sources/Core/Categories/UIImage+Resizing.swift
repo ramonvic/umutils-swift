@@ -12,11 +12,11 @@ import ImageIO
 
 public extension UIImage {
     
-    public func square(toSize size: CGSize) -> UIImage? {
+    func square(toSize size: CGSize) -> UIImage? {
         return self.square()?.resize(toSize: size)
     }
     
-    public func square() -> UIImage? {
+    func square() -> UIImage? {
         let originalWidth  = self.size.width
         let originalHeight = self.size.height
         
@@ -38,7 +38,7 @@ public extension UIImage {
         return nil
     }
     
-    public func resize(toSize size: CGSize) -> UIImage? {
+    func resize(toSize size: CGSize) -> UIImage? {
         let size = self.size
         
         let widthRatio  = size.width  / self.size.width

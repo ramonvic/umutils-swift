@@ -9,10 +9,10 @@
 import Foundation
 
 public extension Bundle {
-    public var releaseVersion: String? {
+    var releaseVersion: String? {
         return infoDictionary?["CFBundleShortVersionString"] as? String
     }
-    public var buildVersion: String? {
+    var buildVersion: String? {
         return infoDictionary?["CFBundleVersion"] as? String
     }
 }

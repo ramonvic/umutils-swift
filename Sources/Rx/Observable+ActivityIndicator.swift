@@ -21,11 +21,11 @@ public extension ObservableConvertibleType {
   ///         .flatMap { ... }
   ///         .subscribe { ... }
   ///
-  public func filter(_ activityIndicator: ActivityIndicator) -> Observable<Self.E> {
+func filter(_ activityIndicator: ActivityIndicator) -> Observable<Self.E> {
     return self.filter(activityIndicator == true)
   }
 
-  public func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> Observable<Self.E> {
+func filter(_ activityIndicatorFilter: ActivityIndicatorFilter) -> Observable<Self.E> {
     let (activityIndicator, condition) = activityIndicatorFilter
     return self.asObservable()
       .withLatestFrom(activityIndicator.asObservable().startWith(false)) { ($0, $1) }

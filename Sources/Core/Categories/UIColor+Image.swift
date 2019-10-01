@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIColor {
-    public var image: UIImage? {
+    var image: UIImage? {
         return UIImage(color: self)
     }
 }

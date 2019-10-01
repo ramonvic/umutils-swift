@@ -10,7 +10,7 @@ import Foundation
 private let dateFormatter = DateFormatter()
 
 public extension Date {
-    public func string(format: String, locale: String = "en_US_POSIX") -> String {
+    func string(format: String, locale: String = "en_US_POSIX") -> String {
         dateFormatter.locale = Locale(identifier: locale)
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)

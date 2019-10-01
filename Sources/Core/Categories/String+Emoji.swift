@@ -10,7 +10,7 @@ import UIKit
 
 public extension UnicodeScalar {
 
-    public var isEmoji: Bool {
+    var isEmoji: Bool {
 
         switch value {
         case 0x1F600...0x1F64F,     // Emoticons
@@ -37,22 +37,22 @@ public extension UnicodeScalar {
 
 public extension String {
 
-    public var glyphCount: Int {
+    var glyphCount: Int {
 
         let richText = NSAttributedString(string: self)
         let line = CTLineCreateWithAttributedString(richText)
         return CTLineGetGlyphCount(line)
     }
 
-    public var isSingleEmoji: Bool {
+    var isSingleEmoji: Bool {
         return glyphCount == 1 && containsEmoji
     }
 
-    public var containsEmoji: Bool {
+    var containsEmoji: Bool {
         return unicodeScalars.contains { $0.isEmoji }
     }
 
-    public var containsOnlyEmoji: Bool {
+    var containsOnlyEmoji: Bool {
         return !isEmpty
             && !unicodeScalars.contains(where: {
                 !$0.isEmoji
@@ -62,11 +62,11 @@ public extension String {
 
     // The next tricks are mostly to demonstrate how tricky it can be to determine emoji's
     // If anyone has suggestions how to improve this, please let me know
-    public var emojiString: String {
+    var emojiString: String {
         return emojiScalars.map { String($0) }.reduce("", +)
     }
 
-    public var emojis: [String] {
+    var emojis: [String] {
 
         var scalars: [[UnicodeScalar]] = []
         var currentScalarSet: [UnicodeScalar] = []

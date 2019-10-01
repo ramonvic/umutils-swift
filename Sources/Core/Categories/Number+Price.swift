@@ -10,7 +10,7 @@ import Foundation
 
 public extension NSNumber {
 
-    public var priceString: String {
+    var priceString: String {
         let numberFormatter = NumberFormatter()
         if #available(iOS 9.0, *) {
             numberFormatter.numberStyle = .currencyAccounting
@@ -27,19 +27,19 @@ public extension NSNumber {
 }
 
 public extension Double {
-    public var priceString: String {
+    var priceString: String {
         return (self as NSNumber).priceString
     }
 }
 
 public extension Float {
-    public var priceString: String {
+    var priceString: String {
         return (self as NSNumber).priceString
     }
 }
 
 public extension Int {
-    public var priceString: String {
+    var priceString: String {
         return (self as NSNumber).priceString
     }
 }

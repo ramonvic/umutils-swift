@@ -11,7 +11,7 @@ import Foundation
 fileprivate let formatter = DateFormatter()
 
 public extension String {
-    public var currency: Double {
+    var currency: Double {
         var amountWithPrefix = self
 
         let regex = (try? NSRegularExpression(pattern: "[^0-9]", options: .caseInsensitive))!
@@ -23,18 +23,18 @@ public extension String {
         return (double / 100)
     }
 
-    public var digits: String {
+    var digits: String {
         return components(separatedBy: CharacterSet.decimalDigits.inverted)
             .joined()
     }
 
-    public var date: Date? {
+    var date: Date? {
         guard !self.isEmpty else { return nil }
 
         return formatter.date(from: self)
     }
 
-    public func asDate(fromFormat: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
+    func asDate(fromFormat: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
         formatter.dateFormat = fromFormat
         return self.date
     }
