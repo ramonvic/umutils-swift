@@ -9,7 +9,7 @@
 import UIKit
 
 public extension UIImage {
-    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+    convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
         color.setFill()
@@ -21,7 +21,7 @@ public extension UIImage {
         self.init(cgImage: cgImage)
     }
 
-    public func with(color: UIColor) -> UIImage {
+    func with(color: UIColor) -> UIImage {
         guard let cgImage = self.cgImage else {
             return self
         }

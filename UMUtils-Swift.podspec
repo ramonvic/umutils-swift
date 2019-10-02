@@ -37,9 +37,8 @@ Pod::Spec.new do |spec|
         ss.source_files = 'Sources/Rx/*.swift'
         
         ss.dependency 'UMUtils-Swift/Core'
-        ss.dependency 'RxSwift', '~> 4.4'
-        ss.dependency 'RxCocoa', '~> 4.4'
-        ss.dependency 'RxOptional', '~> 3.6'
+        ss.dependency 'RxSwift'
+        ss.dependency 'RxCocoa'
     end
 
     spec.subspec 'MBProgressHUD_Rx' do |ss|

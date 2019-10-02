@@ -10,7 +10,7 @@ import Foundation
 
 public extension Int {
 
-    public var humanTime: String {
+    var humanTime: String {
 
         guard self >= 60 else {
             return "\(self)m"
@@ -25,7 +25,7 @@ public extension Int {
         return "\(hours)h \(minutes)m"
     }
 
-    public var time: String {
+    var time: String {
         guard self >= 60 else {
             return "00:\(String(format: "%02d", self))"
         }

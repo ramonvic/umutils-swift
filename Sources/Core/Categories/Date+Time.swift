@@ -9,13 +9,13 @@
 import Foundation
 
 public extension Date {
-    public init(time: String) {
+    init(time: String) {
         let hour = Int(time.components(separatedBy: ":")[0])
         let minute = Int(time.components(separatedBy: ":")[1])
         self = Date(hour: hour, minute: minute) ?? Date()
     }
 
-    public init?(timeZone: TimeZone? = nil, year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil) {
+    init?(timeZone: TimeZone? = nil, year: Int? = nil, month: Int? = nil, day: Int? = nil, hour: Int? = nil, minute: Int? = nil, second: Int? = nil) {
         let calendar = Calendar.current
         let components = DateComponents(timeZone: timeZone, year: year, month: month, day: day, hour: hour, minute: minute, second: second)
 

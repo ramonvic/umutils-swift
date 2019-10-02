@@ -10,11 +10,11 @@ import UIKit
 
 fileprivate var selector: Selector = #selector(getter: UIWindow.visibleViewController)
 public extension UIWindow {
-    @objc public var visibleViewController: UIViewController? {
+    @objc var visibleViewController: UIViewController? {
         return UIWindow.getVisibleViewControllerFrom(self.rootViewController)
     }
 
-    public static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
+    static func getVisibleViewControllerFrom(_ viewController: UIViewController?) -> UIViewController? {
         if let navController = viewController as? UINavigationController {
             return UIWindow.getVisibleViewControllerFrom(navController.visibleViewController)
         } else if let tabController = viewController as? UITabBarController {

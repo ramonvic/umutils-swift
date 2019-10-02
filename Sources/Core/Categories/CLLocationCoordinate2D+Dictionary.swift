@@ -16,21 +16,21 @@ public extension CLLocationCoordinate2D {
     private static let lat = "lat"
     private static let lon = "lon"
 
-    public var asDictionary: CLLocationCoordinateDictionary {
+    var asDictionary: CLLocationCoordinateDictionary {
         return [CLLocationCoordinate2D.lat: self.latitude,
                 CLLocationCoordinate2D.lon: self.longitude]
     }
 
-    public var asData: Data {
+    var asData: Data {
         return NSKeyedArchiver.archivedData(withRootObject: self.asDictionary)
     }
 
-    public init(dict: CLLocationCoordinateDictionary) {
+    init(dict: CLLocationCoordinateDictionary) {
         self.init(latitude: dict[CLLocationCoordinate2D.lat]!,
                   longitude: dict[CLLocationCoordinate2D.lon]!)
     }
 
-    public init?(data: Data) {
+    init?(data: Data) {
         if let dict = NSKeyedUnarchiver.unarchiveObject(with: data) as? CLLocationCoordinateDictionary {
             self.init(latitude: dict[CLLocationCoordinate2D.lat]!,
                       longitude: dict[CLLocationCoordinate2D.lon]!)

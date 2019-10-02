@@ -9,11 +9,11 @@
 import Foundation
 
 public extension NSAttributedString {
-    public func boldify(with string: String) -> NSAttributedString {
+    func boldify(with string: String) -> NSAttributedString {
         return self.setAttributes([.font: UIFont(name: "HelveticaNeue-Bold", size: 15)!], string: string)
     }
 
-    public func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, string: String) -> NSAttributedString {
+    func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, string: String) -> NSAttributedString {
         let nsString = self.string as NSString
         let attributedString = NSMutableAttributedString(attributedString: self)
 
@@ -28,22 +28,22 @@ public extension NSAttributedString {
 }
 
 public extension NSString {
-    public func boldify(with string: String) -> NSAttributedString {
+    func boldify(with string: String) -> NSAttributedString {
         let attributedString = NSAttributedString(string: self as String)
         return attributedString.boldify(with:string)
     }
 
-    public func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, string: String) -> NSAttributedString {
+    func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, string: String) -> NSAttributedString {
         return NSAttributedString(string: self as String).setAttributes(attrs, string: string)
     }
 }
 
 public extension String {
-    public func boldify(with string: String) -> NSAttributedString {
+    func boldify(with string: String) -> NSAttributedString {
         return (self as NSString).boldify(with:string)
     }
 
-    public func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, string: String) -> NSAttributedString {
+    func setAttributes(_ attrs: [NSAttributedString.Key : Any]?, string: String) -> NSAttributedString {
         return (self as NSString).setAttributes(attrs, string: string)
     }
 }

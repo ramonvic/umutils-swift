@@ -15,15 +15,15 @@ public extension UIFont {
         return UIFont(descriptor: descriptor, size: 0)
     }
 
-    public var bold: UIFont {
+    var bold: UIFont {
         return withTraits(.traitBold)
     }
 
-    public var italic: UIFont {
+    var italic: UIFont {
         return withTraits(.traitItalic)
     }
 
-    public var boldItalic: UIFont {
+    var boldItalic: UIFont {
         return withTraits(.traitBold, .traitItalic)
     }
 }
