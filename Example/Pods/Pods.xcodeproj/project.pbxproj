@@ -57,6 +57,8 @@
 		0CC7CEAA234509DF00F23145 /* UIWindow+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE87234509DE00F23145 /* UIWindow+ViewControllers.swift */; };
 		0CC7CEAB234509DF00F23145 /* UILabel+Boldify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE88234509DE00F23145 /* UILabel+Boldify.swift */; };
 		0CC7CEAC234509DF00F23145 /* LayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE89234509DE00F23145 /* LayoutConstraint.swift */; };
+		0CC7CEAF2345207F00F23145 /* ViewModelBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CEAE2345207F00F23145 /* ViewModelBindable.swift */; };
+		0CC7CEB1234520C100F23145 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CEB0234520C100F23145 /* ViewModel.swift */; };
 		1C55EF6627F11517308758F6C177B9F9 /* Pods-UMUtils_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 619EBD0313DF282D278CCBC5685BF195 /* Pods-UMUtils_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7B19FF07648E45275843C3B256629DD3 /* UMUtils-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1878A3C78BFE5D6DBD5EAE30D598D70F /* UMUtils-dummy.m */; };
 		8B0AECEC203F19F3710C3C19D8E983AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3212113385A8FBBDB272BD23C409FF61 /* Foundation.framework */; };
@@ -127,6 +129,8 @@
 		0CC7CE87234509DE00F23145 /* UIWindow+ViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+ViewControllers.swift"; sourceTree = "<group>"; };
 		0CC7CE88234509DE00F23145 /* UILabel+Boldify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Boldify.swift"; sourceTree = "<group>"; };
 		0CC7CE89234509DE00F23145 /* LayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutConstraint.swift; sourceTree = "<group>"; };
+		0CC7CEAE2345207F00F23145 /* ViewModelBindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBindable.swift; sourceTree = "<group>"; };
+		0CC7CEB0234520C100F23145 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		15FA65862D6366C8644922081EDBF6BF /* UMUtils-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "UMUtils-Info.plist"; sourceTree = "<group>"; };
 		1878A3C78BFE5D6DBD5EAE30D598D70F /* UMUtils-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UMUtils-dummy.m"; sourceTree = "<group>"; };
 		1E29203DE8839D79DBEB13064CE175A7 /* Pods-UMUtils_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-UMUtils_Tests-frameworks.sh"; sourceTree = "<group>"; };
@@ -292,6 +296,16 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		0CC7CEAD2345207F00F23145 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0CC7CEAE2345207F00F23145 /* ViewModelBindable.swift */,
+				0CC7CEB0234520C100F23145 /* ViewModel.swift */,
+			);
+			name = ViewModel;
+			path = UMUtils/Classes/ViewModel;
+			sourceTree = "<group>";
+		};
 		13DD37A319DDFC62317ADA9F9041E37F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +336,7 @@
 				0C1F06462345016700462EF1 /* Material */,
 				0C1F06442345016700462EF1 /* Popup */,
 				0C1F06342345016700462EF1 /* Rx */,
+				0CC7CEAD2345207F00F23145 /* ViewModel */,
 				0C1F06412345016700462EF1 /* View */,
 				8055BA8EEE6B923B1DEA6D1AB3B40064 /* Pod */,
 				13DD37A319DDFC62317ADA9F9041E37F /* Support Files */,
@@ -537,6 +552,7 @@
 				0CC7CEAA234509DF00F23145 /* UIWindow+ViewControllers.swift in Sources */,
 				0CC7CEA7234509DF00F23145 /* UIButton+Styles.swift in Sources */,
 				0CC7CE8E234509DE00F23145 /* Dropable.swift in Sources */,
+				0CC7CEB1234520C100F23145 /* ViewModel.swift in Sources */,
 				0C1F06542345016700462EF1 /* UMAlertController.swift in Sources */,
 				0C1F064A2345016700462EF1 /* UMProgressBar.swift in Sources */,
 				0C1F06492345016700462EF1 /* CLLocationManager+Rx.swift in Sources */,
@@ -559,6 +575,7 @@
 				0C1F06532345016700462EF1 /* EmptyView.swift in Sources */,
 				0CC7CE8A234509DE00F23145 /* ViewModelBindable.swift in Sources */,
 				0CC7CE97234509DF00F23145 /* UIViewController+Preparation.swift in Sources */,
+				0CC7CEAF2345207F00F23145 /* ViewModelBindable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

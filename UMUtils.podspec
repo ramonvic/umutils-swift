@@ -81,7 +81,11 @@ TODO: Add long description of the pod here.
       ss.dependency 'RxCocoa'
       ss.dependency 'AIFlatSwitch'
   end
-
+  
+  s.subspec 'ViewModel' do |s|
+      s.source_files = 'UMUtils/Classes/ViewModel/**/*.swift'
+  end
+  
   s.subspec 'Popup' do |ss|
       ss.source_files = 'UMUtils/Classes/Popup/**/*.swift'
       ss.dependency 'CNPPopupController'

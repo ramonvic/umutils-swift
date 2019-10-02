@@ -10,16 +10,16 @@ import Foundation
 
 public protocol ViewModelBindable: class {
     
-    associatedtype ViewModel: AnyObject
+    associatedtype Model: ViewModel
     
-    var viewModel: ViewModel? { get set }
+    var viewModel: Model? { get set }
     
-    func bindViewModel(viewModel: ViewModel)
+    func bindViewModel(viewModel: Model)
 }
 
 extension ViewModelBindable {
     
-    public var viewModel: ViewModel? {
+    public var viewModel: Model? {
         
         get {
             return getAssociatedObject(object: self, key: &AssociatedKey)
@@ -36,7 +36,7 @@ extension ViewModelBindable {
         }
     }
     
-    private func registerBinding(viewModel: ViewModel) {
+    private func registerBinding(viewModel: Model) {
         bindViewModel(viewModel: viewModel)
     }
     
