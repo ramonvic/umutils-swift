@@ -24,6 +24,16 @@ public func setAssociatedObject<T>(object: AnyObject, value: T, key: UnsafeRawPo
     objc_setAssociatedObject(object, key, value,  policy)
 }
 
+public func getLazyObject<T>(object: AnyObject, key: UnsafeRawPointer, loader handler: (() -> T)) -> T {
+    if let t: T = getAssociatedObject(object: object, key: key) {
+        return t
+    }
+    
+    let t = handler()
+    setAssociatedObject(object: object, value: t, key: key, policy: .OBJC_ASSOCIATION_RETAIN)
+    return t
+}
+
 public func getAssociatedObject<T>(object: AnyObject, key: UnsafeRawPointer) -> T? {
     if let v = objc_getAssociatedObject(object, key) as? T {
         return v
