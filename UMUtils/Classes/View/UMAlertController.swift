@@ -14,7 +14,7 @@ public enum UMActionStyle {
 }
 
 public extension UMActionStyle {
-    public init(_ alertStyle: UIAlertAction.Style) {
+    init(_ alertStyle: UIAlertAction.Style) {
         self = {
             switch alertStyle {
             case .cancel:

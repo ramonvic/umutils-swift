@@ -54,7 +54,7 @@ public class EmptyView: UIView {
 @objc
 public extension EmptyView {
     
-    public func setTitle(_ title: String?) {
+    func setTitle(_ title: String?) {
         self.titleLabel.text = title
         
         guard let title = title, !title.isEmpty else {
@@ -65,7 +65,7 @@ public extension EmptyView {
         self.titleLabel.isHidden = false
     }
     
-    public func setMessage(_ message: String?) {
+    func setMessage(_ message: String?) {
         self.messageLabel.text = message
         
         guard let message = message, !message.isEmpty else {
@@ -79,7 +79,7 @@ public extension EmptyView {
 
 public extension EmptyView {
     
-    public func setImage(_ image: UIImage?) {
+    func setImage(_ image: UIImage?) {
         self.imageView.image = image
         
         guard image != nil else {
@@ -90,7 +90,7 @@ public extension EmptyView {
         self.imageContainer.isHidden = false
     }
     
-    public struct Target {
+    struct Target {
         let sender: Any?
         let action: Selector
         let event: UIControl.Event
@@ -102,7 +102,7 @@ public extension EmptyView {
         }
     }
     
-    public func setAction(_ title: String?, target: Target? = nil) {
+    func setAction(_ title: String?, target: Target? = nil) {
         self.actionButton.setTitle(title, for: .normal)
         
         guard let title = title, !title.isEmpty else {
