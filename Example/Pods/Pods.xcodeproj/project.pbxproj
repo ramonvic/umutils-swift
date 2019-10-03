@@ -22,7 +22,7 @@
 		0C1F06552345016700462EF1 /* CNPPopupTheme+Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06452345016700462EF1 /* CNPPopupTheme+Material.swift */; };
 		0C1F06562345016700462EF1 /* TextField+Masks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06472345016700462EF1 /* TextField+Masks.swift */; };
 		0C1F06572345016700462EF1 /* TransitionController+ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F06482345016700462EF1 /* TransitionController+ViewControllers.swift */; };
-		0CC7CE8A234509DE00F23145 /* ViewModelBindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE65234509DE00F23145 /* ViewModelBindable.swift */; };
+		0C1F95FA2346AD35005E0B4C /* UIView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1F95F92346AD35005E0B4C /* UIView+Rx.swift */; };
 		0CC7CE8B234509DE00F23145 /* AssociatedObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */; };
 		0CC7CE8C234509DE00F23145 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE67234509DE00F23145 /* GradientView.swift */; };
 		0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CC7CE69234509DE00F23145 /* DatePicker.swift */; };
@@ -94,7 +94,7 @@
 		0C1F06452345016700462EF1 /* CNPPopupTheme+Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CNPPopupTheme+Material.swift"; sourceTree = "<group>"; };
 		0C1F06472345016700462EF1 /* TextField+Masks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TextField+Masks.swift"; sourceTree = "<group>"; };
 		0C1F06482345016700462EF1 /* TransitionController+ViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransitionController+ViewControllers.swift"; sourceTree = "<group>"; };
-		0CC7CE65234509DE00F23145 /* ViewModelBindable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBindable.swift; sourceTree = "<group>"; };
+		0C1F95F92346AD35005E0B4C /* UIView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Rx.swift"; sourceTree = "<group>"; };
 		0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObjects.swift; sourceTree = "<group>"; };
 		0CC7CE67234509DE00F23145 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		0CC7CE69234509DE00F23145 /* DatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
@@ -181,6 +181,7 @@
 				0C1F06362345016700462EF1 /* UMProgressBar.swift */,
 				0C1F06372345016700462EF1 /* Rx+Operators.swift */,
 				0C1F06382345016700462EF1 /* ActivityIndicator.swift */,
+				0C1F95F92346AD35005E0B4C /* UIView+Rx.swift */,
 				0C1F06392345016700462EF1 /* AIFlatSwitch */,
 				0C1F063B2345016700462EF1 /* UIViewController+Rx.swift */,
 				0C1F063C2345016700462EF1 /* MBProgressHUD */,
@@ -240,7 +241,6 @@
 		0CC7CE64234509DE00F23145 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				0CC7CE65234509DE00F23145 /* ViewModelBindable.swift */,
 				0CC7CE66234509DE00F23145 /* AssociatedObjects.swift */,
 				0CC7CE67234509DE00F23145 /* GradientView.swift */,
 				0CC7CE68234509DE00F23145 /* Views */,
@@ -549,6 +549,7 @@
 				0C1F064B2345016700462EF1 /* Rx+Operators.swift in Sources */,
 				0CC7CE8D234509DE00F23145 /* DatePicker.swift in Sources */,
 				0CC7CE9F234509DF00F23145 /* String+BoundingRect.swift in Sources */,
+				0C1F95FA2346AD35005E0B4C /* UIView+Rx.swift in Sources */,
 				0CC7CEAA234509DF00F23145 /* UIWindow+ViewControllers.swift in Sources */,
 				0CC7CEA7234509DF00F23145 /* UIButton+Styles.swift in Sources */,
 				0CC7CE8E234509DE00F23145 /* Dropable.swift in Sources */,
@@ -573,7 +574,6 @@
 				0CC7CE90234509DE00F23145 /* UIViewController+Storyboard.swift in Sources */,
 				0CC7CEA0234509DF00F23145 /* Double+Round.swift in Sources */,
 				0C1F06532345016700462EF1 /* EmptyView.swift in Sources */,
-				0CC7CE8A234509DE00F23145 /* ViewModelBindable.swift in Sources */,
 				0CC7CE97234509DF00F23145 /* UIViewController+Preparation.swift in Sources */,
 				0CC7CEAF2345207F00F23145 /* ViewModelBindable.swift in Sources */,
 			);

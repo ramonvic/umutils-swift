@@ -43,3 +43,13 @@ public func getAssociatedObject<T>(object: AnyObject, key: UnsafeRawPointer) -> 
         return nil
     }
 }
+
+public func getLazyObject<T>(object: AnyObject, key: UnsafeRawPointer, loader handler: (() -> T)) -> T {
+    if let t: T = getAssociatedObject(object: object, key: key) {
+        return t
+    }
+    
+    let t = handler()
+    setAssociatedObject(object: object, value: t, key: key, policy: .OBJC_ASSOCIATION_RETAIN)
+    return t
+}
