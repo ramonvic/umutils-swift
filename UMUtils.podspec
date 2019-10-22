@@ -70,6 +70,7 @@ TODO: Add long description of the pod here.
   s.subspec 'MBProgressHUD_Rx' do |ss|
       ss.source_files = 'UMUtils/Classes/Rx/MBProgressHUD/**/*.swift'
 
+      ss.dependency 'UMUtils/Rx'
       ss.dependency 'MBProgressHUD'
   end
 
